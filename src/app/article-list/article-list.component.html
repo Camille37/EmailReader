@@ -14,11 +14,23 @@
             <span class="input-group-text border-dark bg-black">
                 <i class="bi bi-search"style="color: white"></i>
             </span>
-            <input type="text" class="form-control border-dark" placeholder="Search..." appHighlight>
+            <input type="text" class="form-control border-dark" placeholder="Search...">
         </div>
     </div>
-    <div class="bg-black" style="height: 400px;">
-        <p class="text-light p-3">List of article here</p>
-    </div>
+    <div class="bg-black card-columns p-4">
+        <div *ngFor="let article of articleList" class="py-2">
+          <div class="card">
+            <img class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="card-text" [innerHTML]="article.abstract"></p>
+              <p class="card-text"><small class="text-muted">Last updated {{ article.update_date }}</small></p>
+              <a class="btn btn-dark me-1" [routerLink]="['/article-edition']">Edit</a>
+              <a class="btn btn-dark" (click)="delete(article)">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 </main>
   
