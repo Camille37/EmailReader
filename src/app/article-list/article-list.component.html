@@ -1,0 +1,24 @@
+<main class="container py-2">
+    <app-login></app-login>
+    <div class="d-flex justify-content-between pt-2" >
+        <div class="nav nav-tabs" style="min-width: 60%;" role="tablist">
+            <button *ngFor="let tab of tabs"
+                class="nav-item nav-link" 
+                [ngClass]="activeTab == tab ? 'bg-black text-light ' : 'bg-light text-black border-secondary'"  
+                (click)="setActiveTab(tab)"
+            >
+                {{ tab }}
+            </button>
+        </div>
+        <div class="input-group p-1" style="max-width: 500px;">
+            <span class="input-group-text border-dark bg-black">
+                <i class="bi bi-search"style="color: white"></i>
+            </span>
+            <input type="text" class="form-control border-dark" placeholder="Search..." appHighlight>
+        </div>
+    </div>
+    <div class="bg-black" style="height: 400px;">
+        <p class="text-light p-3">List of article here</p>
+    </div>
+</main>
+  

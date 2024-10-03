@@ -1,0 +1,22 @@
+<!-- Show if there is an error
+<div class="alert alert-danger d-flex justify-content-center align-items-center">
+    <p class="text-danger"><strong>Error : </strong>Invalid credentials</p>
+</div>
+-->
+
+<div class="border-bottom border-top d-flex flex-row my-3 px-2" style="background-color: #f3f3f3;">
+    <i class="bi bi-person-square mx-2" 
+        style="font-size: 60px;"></i>
+    <form *ngIf="!isLogged; else welcome" class="d-flex flex-row align-items-center">
+        <input type="text" class="form-control mx-2" placeholder="Username" style="max-width: 200px;"/>
+        <input type="text" class="form-control" placeholder="Password" style="max-width: 200px;"/>
+        <button class="btn btn-dark mx-3" (click)="login()">Login</button>
+    </form>
+</div>
+
+<ng-template #welcome>
+    <div class="d-flex flex-row align-items-center">
+        <p><strong>Welcome {{ username }} !</strong></p>
+        <button class="btn btn-dark mx-3" (click)="logout()">Logout</button>
+    </div> 
+</ng-template>
