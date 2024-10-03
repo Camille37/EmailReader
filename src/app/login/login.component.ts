@@ -1,7 +1,8 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../interfaces/user';
+import { NewsService } from '../services/news.service';
 
 @Component({
   selector: 'app-login',
@@ -12,26 +13,32 @@ export class LoginComponent implements OnDestroy {
 
   isLogged : boolean ;
   isError: boolean = false;
-  username: string = '';
-  password: string= '';
+  formUsername: string = '';
+  formPassword: string = '';
+  user: User;
 
-  loginSrv : LoginService;
+  private loginSrv : LoginService;
+  private newsSrv : NewsService;
   private subscription: Subscription = new Subscription();
 
-  constructor(loginSrv : LoginService){
+  constructor(loginSrv : LoginService, newsSrv : NewsService){
     this.loginSrv = loginSrv;
+    this.newsSrv = newsSrv;
     this.isLogged = this.loginSrv.isLogged();
+    this.user = this.loginSrv.getUser() ?? {} as User;
   }
 
   @ViewChild('loginForm') loginForm: any; 
 
   login(){
     this.subscription.add(
-      this.loginSrv.login(this.username, this.password).subscribe({
+      this.loginSrv.login(this.formUsername, this.formPassword).subscribe({
         next: (user: User) => {
           console.log('Successful login of '+user.username, user);
-          this.isError = false;
+          this.isError = false; //delete the error message if it was displayed
+          this.user = user;
           this.isLogged = this.loginSrv.isLogged();
+          this.newsSrv.setUserApiKey(user.apikey);
           this.loginForm.reset();
         },
         error: (err) => {
@@ -44,6 +51,7 @@ export class LoginComponent implements OnDestroy {
 
   logout(){
     this.loginSrv.logout();
+    this.newsSrv.setAnonymousApiKey();
     this.isLogged = this.loginSrv.isLogged();
   }
 
