@@ -1,1 +1,38 @@
-<p>article-edition works!</p>
+<app-login></app-login>
+<div class="form-text mb-2" id="basic-addon4">Title*</div>
+<div class="input-group p-1 mb-3">
+    <input type="text" class="form-control border-dark">
+</div>
+
+<div class="form-text mb-2" id="basic-addon4">Subtitle*</div>
+<div class="input-group p-1 mb-3">
+    <input type="text" class="form-control border-dark">
+</div>
+
+<div class="mb-3">
+    <div class="form-text mb-2" id="basic-addon4">Category</div>
+    <select class="form-select bg-light mb-3" style="max-width: 300px;">
+        <option *ngFor="let category of listCategory">
+            {{category}}
+        </option>
+    </select>
+</div>
+
+<div>
+    <button class="btn btn-dark mx-3" (click)="browse()">Browse</button>
+</div>
+
+<div class="form-text mb-2" id="basic-addon4">Abstract*</div>
+<div class="input-group p-1 mb-3">
+    <input type="text" class="form-control border-dark">
+</div>
+
+<div class="form-text mb-2" id="basic-addon4">Body*</div>
+<div class="input-group p-1 mb-3">
+    <textarea class="form-control border-dark wrap-text" rows="5"></textarea>
+</div>
+
+<div>
+    <button class="btn btn-dark mx-3" (click)="save()">Save</button>
+    <button class="btn btn-dark mx-3" (click)="back()">Back</button>
+</div>
