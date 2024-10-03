@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Category } from '../interfaces/category';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
+import { Article } from '../interfaces/article';
+
 @Component({
   selector: 'app-article-edition',
   templateUrl: './article-edition.component.html',
@@ -9,7 +13,67 @@ export class ArticleEditionComponent {
   listCategory: any = Object.values(Category).filter(
     (value): value is any => typeof value === 'string'
   );
+
+  constructor(private router: Router) {}
+
+  article: Article = {
+    id: 0,
+    id_user: '',
+    abstract: '',
+    subtitle: '',
+    update_date: new Date().toISOString(), 
+    category: '',
+    title: '',
+    image_data: '',
+    image_media_type: ''
+  };
   
+  title: string = '';
+  subtitle: string = '';
+  category: string = '';
+  abstract: string = '';
+  body: string = '';
+
+  imageError: string | null = null;
+  isImageSaved: boolean = false;
+  cardImageBase64: string | null = null;
+
+  fileChangeEvent(fileInput: any) {
+    this.imageError = null;
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      // Size Filter Bytes
+      const MAX_SIZE = 20971520;
+      const ALLOWED_TYPES = ['image/png', 'image/jpeg'];
+
+      if (fileInput.target.files[0].size > MAX_SIZE) {
+        this.imageError =
+          'Maximum size allowed is ' + MAX_SIZE / 1000 + 'Mb';
+        return false;
+      }
+      if (!_.includes(ALLOWED_TYPES, fileInput.target.files[0].type)) {
+        this.imageError = 'Only Images are allowed ( JPG | PNG )';
+        return false;
+      }
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+          const imgBase64Path = e.target.result;
+          this.cardImageBase64 = imgBase64Path;
+          this.isImageSaved = true;
+
+          this.article.image_media_type = fileInput.target.files[0].type;
+          const head = this.article.image_media_type.length + 13;
+          this.article.image_data = e.target.result.substring(head, e.target.result.length);
+
+        };
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
+    return true;
+  }
+
   browse(){
     // To complete (load a picture)
   }
@@ -19,6 +83,6 @@ export class ArticleEditionComponent {
   }
 
   back(){
-    // To complete (back to the list)
+    this.router.navigate(['/article-list']);
   }
 }

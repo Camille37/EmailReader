@@ -1,38 +1,54 @@
 <app-login></app-login>
+
+<form #myForm="ngForm">
+
 <div class="form-text mb-2" id="basic-addon4">Title*</div>
 <div class="input-group p-1 mb-3">
-    <input type="text" class="form-control border-dark">
+    <input type="text" class="form-control border-dark" [(ngModel)]="title" name="title" required>
 </div>
 
 <div class="form-text mb-2" id="basic-addon4">Subtitle*</div>
 <div class="input-group p-1 mb-3">
-    <input type="text" class="form-control border-dark">
+    <input type="text" class="form-control border-dark" [(ngModel)]="subtitle" name="subtitle" required>
 </div>
 
 <div class="mb-3">
-    <div class="form-text mb-2" id="basic-addon4">Category</div>
-    <select class="form-select bg-light mb-3" style="max-width: 300px;">
-        <option *ngFor="let category of listCategory">
+    <div class="form-text mb-2" id="basic-addon4">Category*</div>
+    <select class="form-select bg-light mb-3" style="max-width: 300px;" [(ngModel)]="category" name="category" required>
+        <option *ngFor="let category of listCategory" [value]="category">
             {{category}}
         </option>
     </select>
 </div>
 
-<div>
-    <button class="btn btn-dark mx-3" (click)="browse()">Browse</button>
+<div class="mb-3">
+  <input class="form-control p-1" type="file" id="formFile"(change)="fileChangeEvent($event)">
+  <div *ngIf="imageError" class="text-danger">{{ imageError }}</div>
+  <img *ngIf="isImageSaved" [src]="cardImageBase64" alt="Image Preview" style="max-width: 300px; margin-top: 10px;">
 </div>
 
 <div class="form-text mb-2" id="basic-addon4">Abstract*</div>
 <div class="input-group p-1 mb-3">
-    <input type="text" class="form-control border-dark">
+    <input type="text" class="form-control border-dark" [(ngModel)]="abstract" name="abstract" required>
 </div>
 
-<div class="form-text mb-2" id="basic-addon4">Body*</div>
+<div class="form-text mb-2" id="basic-addon4">Body</div>
 <div class="input-group p-1 mb-3">
-    <textarea class="form-control border-dark wrap-text" rows="5"></textarea>
+    <textarea class="form-control border-dark wrap-text" rows="5" [(ngModel)]="body" name="body"></textarea>
 </div>
 
 <div>
-    <button class="btn btn-dark mx-3" (click)="save()">Save</button>
+    <button class="btn btn-dark mx-3" type="submit" [disabled]="!myForm.form.valid" (click)="save()">Save</button>
     <button class="btn btn-dark mx-3" (click)="back()">Back</button>
+</div>
+
+</form>
+
+<div class="text-center">
+    <h2>{{ title }}</h2> 
+    <h3>{{ subtitle }}</h3> 
+    <h4>{{ category }}</h4> 
+    <img [src]="'data:' + article.image_media_type + ';base64,' + article.image_data "> 
+    <h5>{{ abstract }}</h5>
+    <h6>{{ body }}</h6>
 </div>
