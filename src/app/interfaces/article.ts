@@ -1,12 +1,13 @@
 import { Category } from "./category";
 
 export interface Article {
-    tittle: string,
-    subtitle?: string,
-    category: Category,
+    id: number,
+    id_user: string,
     abstract: string,
-    body?: string,
-    //update_date ?
-    //image ?
-    //thumbnail ?
+    subtitle: string,
+    update_date: string,
+    category: string,
+    title: string,
+    image_data: string,
+    image_media_type: string
 }
