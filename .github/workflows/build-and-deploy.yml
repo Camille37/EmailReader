@@ -26,8 +26,13 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production --base-href /NewsPaper/
 
+      - name: Rename index.csr.html to index.html
+        run: |
+          mv ./dist/news-paper/browser/index.csr.html ./dist/news-paper/browser/index.html || echo "index.csr.html not found"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/news-paper/browser
+          keep_files: false
