@@ -14,20 +14,12 @@ export class ArticleEditionComponent {
     (value): value is any => typeof value === 'string'
   );
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.article.update_date = new Date().toISOString();
+  }
 
-  article: Article = {
-    id: 0,
-    id_user: '',
-    abstract: '',
-    subtitle: '',
-    update_date: new Date().toISOString(), 
-    category: '',
-    title: '',
-    image_data: '',
-    image_media_type: ''
-  };
-  
+  article: Article = {} as Article; 
+
   title: string = '';
   subtitle: string = '';
   category: string = '';
@@ -63,9 +55,9 @@ export class ArticleEditionComponent {
           this.cardImageBase64 = imgBase64Path;
           this.isImageSaved = true;
 
-          this.article.image_media_type = fileInput.target.files[0].type;
-          const head = this.article.image_media_type.length + 13;
-          this.article.image_data = e.target.result.substring(head, e.target.result.length);
+          this.article.thumbnail_media_type = fileInput.target.files[0].type;
+          const head = this.article.thumbnail_media_type.length + 13;
+          this.article.thumbnail_image = e.target.result.substring(head, e.target.result.length);
 
         };
       };
