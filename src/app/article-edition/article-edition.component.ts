@@ -69,9 +69,9 @@ export class ArticleEditionComponent implements OnInit{
           this.cardImageBase64 = imgBase64Path;
           this.isImageSaved = true;
 
-          this.article.thumbnail_media_type = fileInput.target.files[0].type;
-          const head = this.article.thumbnail_media_type.length + 13;
-          this.article.thumbnail_image = e.target.result.substring(head, e.target.result.length);
+          this.article.image_data = fileInput.target.files[0].type;
+          const head = (this.article.image_media_type ?? '').length + 13;
+          this.article.image_data = e.target.result.substring(head, e.target.result.length);
 
         };
       };
