@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+app-article-list{
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+  }
