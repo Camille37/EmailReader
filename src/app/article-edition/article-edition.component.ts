@@ -1,21 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Category } from '../interfaces/category';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Article } from '../interfaces/article';
+import { NewsService } from '../services/news.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-article-edition',
   templateUrl: './article-edition.component.html',
   styleUrl: './article-edition.component.css'
 })
-export class ArticleEditionComponent {
+export class ArticleEditionComponent implements OnInit{
+  
+  ngOnInit(): void {
+    const articleId = this.route.snapshot.paramMap.get('id');
+    if (articleId) {
+      this.articleService.getArticle(articleId).subscribe((data: Article) => {
+        this.article = data;
+        
+      });
+    }
+  }
+  
   listCategory: any = Object.values(Category).filter(
     (value): value is any => typeof value === 'string'
   );
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute, private articleService: NewsService) {
     this.article.update_date = new Date().toISOString();
+    
   }
 
   article: Article = {} as Article; 
@@ -66,12 +80,13 @@ export class ArticleEditionComponent {
     return true;
   }
 
-  browse(){
-    // To complete (load a picture)
-  }
-
   save(){
-    // To complete (save the edition)
+    if (this.article) {
+      this.articleService.updateArticle(this.article).subscribe(() => {
+        alert("The article has been saved correctly")
+        this.router.navigate(['/article-list']);
+      });
+  }
   }
 
   back(){
