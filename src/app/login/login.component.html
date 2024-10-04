@@ -6,9 +6,24 @@
     <i class="bi bi-person-square mx-2" 
         style="font-size: 60px;"></i>
     <form *ngIf="!isLogged; else welcome" #loginForm="ngForm" class="d-flex flex-row align-items-center">
-        <input type="text" [(ngModel)]="formUsername" name="formUsername" class="form-control mx-2" placeholder="Username" style="max-width: 200px;"/>
-        <input type="text"[(ngModel)]="formPassword" name="formPassword" class="form-control" placeholder="Password" style="max-width: 200px;"/>
-        <button class="btn btn-dark mx-3" (click)="login()">Login</button>
+        <input type="text" 
+            [(ngModel)]="formUsername" 
+            required name="formUsername" 
+            class="form-control mx-2" 
+            placeholder="Username" 
+            style="max-width: 200px;"/>
+        <input type="text"
+            [(ngModel)]="formPassword" 
+            required
+            name="formPassword" 
+            class="form-control" 
+            placeholder="Password" 
+            style="max-width: 200px;"/>
+        <button class="btn btn-dark mx-3" 
+            [ngClass]="!loginForm.valid ? 'disabled' : ''" 
+            (click)="login()">
+                Login
+        </button>
     </form>
 </div>
 

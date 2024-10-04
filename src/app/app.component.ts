@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NewsPaper';
+  loginSrv : LoginService;
+
+  constructor(loginSrv : LoginService){
+    this.loginSrv = loginSrv;
+  }
 }

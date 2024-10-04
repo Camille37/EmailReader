@@ -3,6 +3,7 @@ import { Category } from '../interfaces/category';
 import { NewsService } from '../services/news.service';
 import { LoginService } from '../services/login.service';
 import { Article } from '../interfaces/article';
+import { log } from 'console';
 
 @Component({
   selector: 'app-article-list',
@@ -14,14 +15,16 @@ export class ArticleListComponent implements OnInit{
   activeTab: Category = Category.All; // active tab by default;
   tabs : any = Object.values(Category); // list of tabs
   searchText: string = '';
+  loginSrv: LoginService;
 
   newsSvr : NewsService;
   articleList : Article[] = [];
 
-  constructor(private newsSrv : NewsService, private loginSrv : LoginService){
+  constructor(private newsSrv : NewsService, loginSrv : LoginService){
     if (!loginSrv.isLogged()){
       newsSrv.setAnonymousApiKey();
     }
+    this.loginSrv = loginSrv;
     this.newsSvr = newsSrv;
   }
 
