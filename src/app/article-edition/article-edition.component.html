@@ -4,17 +4,17 @@
 
 <div class="form-text mb-2" id="basic-addon4">Title*</div>
 <div class="input-group p-1 mb-3">
-    <input type="text" class="form-control border-dark" [(ngModel)]="title" name="title" required>
+    <input type="text" class="form-control border-dark" [(ngModel)]="article.title" name="title" required>
 </div>
 
 <div class="form-text mb-2" id="basic-addon4">Subtitle*</div>
 <div class="input-group p-1 mb-3">
-    <input type="text" class="form-control border-dark" [(ngModel)]="subtitle" name="subtitle" required>
+    <input type="text" class="form-control border-dark" [(ngModel)]="article.subtitle" name="subtitle" required>
 </div>
 
 <div class="mb-3">
     <div class="form-text mb-2" id="basic-addon4">Category*</div>
-    <select class="form-select bg-light mb-3" style="max-width: 300px;" [(ngModel)]="category" name="category" required>
+    <select class="form-select bg-light mb-3" style="max-width: 300px;" [(ngModel)]="article.category" name="category" required>
         <option *ngFor="let category of listCategory" [value]="category">
             {{category}}
         </option>
@@ -22,14 +22,13 @@
 </div>
 
 <div class="mb-3">
-  <input class="form-control p-1" type="file" id="formFile"(change)="fileChangeEvent($event)">
+  <input class="form-control p-1" type="file" id="formFile"(change)="fileChangeEvent($event)" [(ngModel)]="article.thumbnail_image" name="thumbnail_image">
   <div *ngIf="imageError" class="text-danger">{{ imageError }}</div>
-  <img *ngIf="isImageSaved" [src]="cardImageBase64" alt="Image Preview" style="max-width: 300px; margin-top: 10px;">
 </div>
 
 <div class="form-text mb-2" id="basic-addon4">Abstract*</div>
 <div class="input-group p-1 mb-3">
-    <input type="text" class="form-control border-dark" [(ngModel)]="abstract" name="abstract" required>
+    <input type="text" class="form-control border-dark" [(ngModel)]="article.abstract" name="abstract" required>
 </div>
 
 <div class="form-text mb-2" id="basic-addon4">Body</div>
@@ -45,10 +44,10 @@
 </form>
 
 <div class="text-center">
-    <h2>{{ title }}</h2> 
-    <h3>{{ subtitle }}</h3> 
-    <h4>{{ category }}</h4> 
+    <h2>{{ article.title }}</h2> 
+    <h3>{{ article.subtitle }}</h3> 
+    <h4>{{ article.category }}</h4> 
     <img [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image "> 
-    <h5>{{ abstract }}</h5>
+    <h5>{{ article.abstract }}</h5>
     <h6>{{ body }}</h6>
 </div>
