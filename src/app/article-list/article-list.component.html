@@ -19,18 +19,6 @@
             <input type="text" class="form-control border-dark" [(ngModel)]="searchText" placeholder="Search...">
         </div>
     </div>
-<<<<<<< HEAD
-    <div class="bg-black card-columns p-4">
-        <div *ngFor="let article of articleList | searchCategory:activeTab" class="py-2">
-          <div class="card">
-            <img class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
-            <div class="card-body">
-              <h5 class="card-title">{{ article.title }}</h5>
-              <p class="card-text" [innerHTML]="article.abstract"></p>
-              <p class="card-text"><small class="text-muted">Last updated {{ article.update_date }}</small></p>
-              <a class="btn btn-dark me-1" [routerLink]="['/article-edition', article.id]">Edit</a>
-              <a class="btn btn-dark" (click)="delete(article)">Delete</a>
-=======
     <div class="bg-black  p-4 flex-column flex-fill d-flex">
         <div *ngIf="(articleList | searchCategory:activeTab | search:searchText) as filteredArtciles" class="flex-column flex-fill d-flex">
           <div *ngIf="filteredArtciles.length != 0 ; else noArticle" class="card-columns">
@@ -45,7 +33,6 @@
                   <a *ngIf="loginSrv.isLogged()" class="btn btn-dark" (click)="delete(article)">Delete</a>
                 </div>
               </div>
->>>>>>> da013f4b0efa0c3feca06d471df82a5f7a82df79
             </div>
           </div>
         </div>
