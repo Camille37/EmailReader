@@ -13,6 +13,7 @@ export class ArticleListComponent implements OnInit{
 
   activeTab: Category = Category.All; // active tab by default;
   tabs : any = Object.values(Category); // list of tabs
+  searchText: string = '';
 
   newsSvr : NewsService;
   articleList : Article[] = [];
