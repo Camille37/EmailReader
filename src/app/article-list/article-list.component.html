@@ -29,7 +29,7 @@
                   <h5 class="card-title">{{ article.title }}</h5>
                   <p class="card-text" [innerHTML]="article.abstract"></p>
                   <p class="card-text"><small class="text-muted">Last updated {{ article.update_date }}</small></p>
-                  <a *ngIf="loginSrv.isLogged()" class="btn btn-dark me-1" [routerLink]="['/article-edition']">Edit</a>
+                  <a *ngIf="loginSrv.isLogged()" class="btn btn-dark me-1" [routerLink]="['/article-edition/' + article.id]">Edit</a>
                   <a *ngIf="loginSrv.isLogged()" class="btn btn-dark" (click)="delete(article)">Delete</a>
                 </div>
               </div>
