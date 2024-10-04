@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="bg-black card-columns p-4">
-        <div *ngFor="let article of articleList" class="py-2">
+        <div *ngFor="let article of articleList | searchCategory:activeTab" class="py-2">
           <div class="card">
             <img class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
             <div class="card-body">

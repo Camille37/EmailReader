@@ -10,6 +10,7 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { SearchCategoryPipe } from './pipes/search-category.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
     ArticleDetailsComponent,
     ArticleEditionComponent,
     ArticleListComponent,
-    LoginComponent
+    LoginComponent,
+    SearchCategoryPipe
   ],
   imports: [
     BrowserModule,
