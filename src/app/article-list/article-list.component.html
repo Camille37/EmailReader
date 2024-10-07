@@ -24,9 +24,15 @@
           <div *ngIf="filteredArtciles.length != 0 ; else noArticle" class="card-columns">
             <div *ngFor="let article of filteredArtciles" class="py-2">
               <div class="card">
-                <img class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
+                <a [routerLink]="['/article-details']">
+                  <img *ngIf="article.thumbnail_media_type != null && article.thumbnail_media_type != null" 
+                  class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
+                </a>
                 <div class="card-body">
-                  <h5 class="card-title">{{ article.title }}</h5>
+                  <a class="text-black" [routerLink]="['/article-details']">
+                    <h4 class="card-title"><strong>{{ article.title }}</strong></h4>
+                  </a>
+                  <h6>{{ article.subtitle }}</h6>
                   <p class="card-text" [innerHTML]="article.abstract"></p>
                   <p class="card-text"><small class="text-muted">Last updated {{ article.update_date }}</small></p>
                   <a *ngIf="loginSrv.isLogged()" class="btn btn-dark me-1" [routerLink]="['/article-edition/' + article.id]">Edit</a>
