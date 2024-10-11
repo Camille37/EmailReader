@@ -32,7 +32,8 @@ export class ArticleEditionComponent implements OnInit{
     
   }
 
-  article: Article = {} as Article; 
+  article: Article = {} as Article;
+  showview : boolean = false;
 
   title: string = '';
   subtitle: string = '';
