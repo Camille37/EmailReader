@@ -38,9 +38,9 @@ export class ArticleEditionComponent implements OnInit{
 
   article: Article = {} as Article;
   loginSrv: LoginService;
-  //user: User;
   newsSvr : NewsService;
   user_last_edit?: string = 'Unknown';
+  showview : boolean = false;
 
   title: string = '';
   subtitle: string = '';
