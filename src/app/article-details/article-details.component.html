@@ -7,4 +7,10 @@
     <img class="rounded mx-auto d-block" width="500" height="500" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data ">
     <h5>{{ article.abstract }}</h5>
     <h6 [innerHTML]="article.body"></h6>
+    <p class="card-text"><small class="text-muted">Last updated: {{ article.update_date }} by User ID: {{ article.id_user }}</small></p>
+    <!-- <p class="card-text"><small class="text-muted">Last updated: {{ article.update_date }} by Username: {{ article.user_last_edit }}</small></p>-->
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-dark mx-3" (click)="back()">Back</button>
 </div>

@@ -11,4 +11,5 @@ export interface Article {
     image_data?: string;
     image_media_type?: string;
     body?: string;
+    user_last_edit?: string;
   }

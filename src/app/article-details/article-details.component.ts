@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Article } from '../interfaces/article';
 import { NewsService } from '../services/news.service';
+import { LoginService } from '../services/login.service';
 import { ActivatedRoute } from '@angular/router';
+//import { User } from '../interfaces/user';
+
 @Component({
   selector: 'app-article-details',
   templateUrl: './article-details.component.html',
@@ -12,31 +15,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ArticleDetailsComponent implements OnInit{
 
-  newsSvr : NewsService;
-  article: Article = {} as Article;
-
   ngOnInit(): void {
     const articleId = this.route.snapshot.paramMap.get('id');
     if (articleId) {
-      this.articleService.getArticle(articleId).subscribe((data: Article) => {
+      this.newsSvr.getArticle(articleId).subscribe((data: Article) => {
         this.article = data;
       });
+      //console.log('Article Details - Edited by:'+this.article.user_last_edit);
     }
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: NewsService) {
-    this.newsSvr = articleService;
+  loginSrv: LoginService;
+  newsSvr : NewsService;
+
+  constructor(private router: Router, private route: ActivatedRoute, private newsSrv: NewsService, loginSrv : LoginService) {
+    if (!loginSrv.isLogged()){
+      newsSrv.setAnonymousApiKey();
+    }
+    this.loginSrv = loginSrv;
+    this.newsSvr = newsSrv;
   }
 
-  title: string = '';
-  subtitle: string = '';
-  category: string = '';
-  abstract: string = '';
-  body: string = '';
-
-  imageError: string | null = null;
-  isImageSaved: boolean = false;
-  cardImageBase64: string | null = null;
+  article: Article = {} as Article;
 
   redirectEmailsList(): void {
     this.router.navigate(['/emailslist']);
