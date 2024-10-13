@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Article } from '../interfaces/article';
 import { NewsService } from '../services/news.service';
+import { LoginService } from '../services/login.service';
 import { ActivatedRoute } from '@angular/router';
+//import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-article-edition',
@@ -12,27 +14,32 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './article-edition.component.css'
 })
 export class ArticleEditionComponent implements OnInit{
-  
+
   ngOnInit(): void {
     const articleId = this.route.snapshot.paramMap.get('id');
     if (articleId) {
-      this.articleService.getArticle(articleId).subscribe((data: Article) => {
+      this.newsSvr.getArticle(articleId).subscribe((data: Article) => {
         this.article = data;
-        
       });
     }
   }
-  
+
   listCategory: any = Object.values(Category).filter(
     (value): value is any => typeof value === 'string'
   );
 
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: NewsService) {
+  constructor(private router: Router, private route: ActivatedRoute, loginSrv : LoginService, newsSrv : NewsService) {
     this.article.update_date = new Date().toISOString();
-    
+    this.loginSrv = loginSrv;
+    this.newsSvr = newsSrv;
+    //this.isLogged = this.loginSrv.isLogged();
+    //this.user = this.loginSrv.getUser() ?? {} as User;
   }
 
   article: Article = {} as Article;
+  loginSrv: LoginService;
+  newsSvr : NewsService;
+  user_last_edit?: string = 'Unknown';
   showview : boolean = false;
 
   title: string = '';
@@ -58,7 +65,8 @@ export class ArticleEditionComponent implements OnInit{
         return false;
       }
       if (!_.includes(ALLOWED_TYPES, fileInput.target.files[0].type)) {
-        this.imageError = 'Only Images are allowed ( JPG | PNG )';
+        fileInput.target.value = '';
+        this.imageError = 'Only images are allowed ( JPG | PNG )';
         return false;
       }
       const reader = new FileReader();
@@ -83,11 +91,14 @@ export class ArticleEditionComponent implements OnInit{
 
   save(){
     if (this.article) {
-      this.articleService.updateArticle(this.article).subscribe(() => {
+      this.user_last_edit = this.loginSrv.getUser()?.username;
+      this.newsSvr.updateArticle(this.article).subscribe(() => {
         alert("The article has been saved correctly")
         this.router.navigate(['/article-list']);
       });
-  }
+      this.article.user_last_edit = this.user_last_edit;
+      console.log('The user who edited the last time was: '+this.article.user_last_edit);
+    }
   }
 
   back(){

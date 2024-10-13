@@ -3,6 +3,8 @@ import { LoginService } from '../services/login.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../interfaces/user';
 import { NewsService } from '../services/news.service';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +23,14 @@ export class LoginComponent implements OnDestroy {
   private newsSrv : NewsService;
   private subscription: Subscription = new Subscription();
 
-  constructor(loginSrv : LoginService, newsSrv : NewsService){
+  constructor(private router: Router, private route: ActivatedRoute, loginSrv : LoginService, newsSrv : NewsService){
     this.loginSrv = loginSrv;
     this.newsSrv = newsSrv;
     this.isLogged = this.loginSrv.isLogged();
     this.user = this.loginSrv.getUser() ?? {} as User;
   }
 
-  @ViewChild('loginForm') loginForm: any; 
+  @ViewChild('loginForm') loginForm: any;
 
   login(){
     this.subscription.add(
@@ -53,6 +55,7 @@ export class LoginComponent implements OnDestroy {
     this.loginSrv.logout();
     this.newsSrv.setAnonymousApiKey();
     this.isLogged = this.loginSrv.isLogged();
+    this.router.navigate(['/article-list']);
   }
 
   ngOnDestroy() {
