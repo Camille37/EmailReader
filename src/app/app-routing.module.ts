@@ -7,7 +7,7 @@ import { ArticleEditionComponent } from './article-edition/article-edition.compo
 const routes: Routes = [
   { path: '', redirectTo: '/article-list', pathMatch: 'full' },
   { path: 'article-list', component: ArticleListComponent },
-  { path: 'article-details', component: ArticleDetailsComponent }, 
+  { path: 'article-details/:id', component: ArticleDetailsComponent },
   { path: 'article-edition/:id', component: ArticleEditionComponent },
 ];
 

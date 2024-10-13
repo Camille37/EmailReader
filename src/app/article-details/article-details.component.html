@@ -1,1 +1,10 @@
-<p>article-details works!</p>
+<app-login></app-login>
+
+<div class="text-center">
+    <h2>{{ article.title }}</h2>
+    <h3>{{ article.subtitle }}</h3>
+    <h4>{{ article.category }}</h4>
+    <img class="rounded mx-auto d-block" width="500" height="500" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data ">
+    <h5>{{ article.abstract }}</h5>
+    <h6 [innerHTML]="article.body"></h6>
+</div>

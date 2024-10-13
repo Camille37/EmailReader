@@ -12,27 +12,26 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './article-edition.component.css'
 })
 export class ArticleEditionComponent implements OnInit{
-  
+
   ngOnInit(): void {
     const articleId = this.route.snapshot.paramMap.get('id');
     if (articleId) {
       this.articleService.getArticle(articleId).subscribe((data: Article) => {
         this.article = data;
-        
       });
     }
   }
-  
+
   listCategory: any = Object.values(Category).filter(
     (value): value is any => typeof value === 'string'
   );
 
   constructor(private router: Router, private route: ActivatedRoute, private articleService: NewsService) {
     this.article.update_date = new Date().toISOString();
-    
+
   }
 
-  article: Article = {} as Article; 
+  article: Article = {} as Article;
 
   title: string = '';
   subtitle: string = '';
@@ -86,7 +85,7 @@ export class ArticleEditionComponent implements OnInit{
         alert("The article has been saved correctly")
         this.router.navigate(['/article-list']);
       });
-  }
+    }
   }
 
   back(){

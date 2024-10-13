@@ -5,8 +5,8 @@
     <div class="d-flex justify-content-between pt-2 ps-4" >
         <div class="nav nav-tabs" style="min-width: 60%;" role="tablist">
             <button *ngFor="let tab of tabs"
-                class="nav-item nav-link" 
-                [ngClass]="activeTab == tab ? 'bg-black text-light ' : 'bg-light text-black border-secondary'"  
+                class="nav-item nav-link"
+                [ngClass]="activeTab == tab ? 'bg-black text-light ' : 'bg-light text-black border-secondary'"
                 (click)="setActiveTab(tab)"
             >
                 {{ tab }}
@@ -24,12 +24,12 @@
           <div *ngIf="filteredArtciles.length != 0 ; else noArticle" class="card-columns">
             <div *ngFor="let article of filteredArtciles" class="py-2">
               <div class="card">
-                <a [routerLink]="['/article-details']">
-                  <img *ngIf="article.thumbnail_media_type != null && article.thumbnail_media_type != null" 
+                <a [routerLink]="['/article-details/' + article.id]">
+                  <img *ngIf="article.thumbnail_media_type != null && article.thumbnail_media_type != null"
                   class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
                 </a>
                 <div class="card-body">
-                  <a class="text-black" [routerLink]="['/article-details']">
+                  <a class="text-black" [routerLink]="['/article-details/' + article.id]">
                     <h4 class="card-title"><strong>{{ article.title }}</strong></h4>
                   </a>
                   <h6>{{ article.subtitle }}</h6>
@@ -48,4 +48,3 @@
 <ng-template #noArticle>
   <p class="text-light d-flex flex-fill justify-content-center align-items-center">No articles match your research...</p>
 </ng-template>
-  
