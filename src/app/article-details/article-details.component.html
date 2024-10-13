@@ -4,7 +4,8 @@
     <h2>{{ article.title }}</h2>
     <h3>{{ article.subtitle }}</h3>
     <h4>{{ article.category }}</h4>
-    <img class="rounded mx-auto d-block" width="500" height="500" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data ">
+    <img *ngIf="article.image_data != null && article.image_media_type != null"
+            class="card-img-top" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data"/>
     <h5>{{ article.abstract }}</h5>
     <h6 [innerHTML]="article.body"></h6>
     <p class="card-text"><small class="text-muted">Last updated: {{ article.update_date }} by User ID: {{ article.id_user }}</small></p>

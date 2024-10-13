@@ -65,7 +65,8 @@ export class ArticleEditionComponent implements OnInit{
         return false;
       }
       if (!_.includes(ALLOWED_TYPES, fileInput.target.files[0].type)) {
-        this.imageError = 'Only Images are allowed ( JPG | PNG )';
+        fileInput.target.value = '';
+        this.imageError = 'Only images are allowed ( JPG | PNG )';
         return false;
       }
       const reader = new FileReader();

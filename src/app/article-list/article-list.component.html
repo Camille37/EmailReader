@@ -25,7 +25,7 @@
             <div *ngFor="let article of filteredArtciles" class="py-2">
               <div class="card">
                 <a [routerLink]="['/article-details/' + article.id]">
-                  <img *ngIf="article.thumbnail_media_type != null && article.thumbnail_media_type != null"
+                  <img *ngIf="article.thumbnail_image != null && article.thumbnail_media_type != null"
                   class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
                 </a>
                 <div class="card-body">
