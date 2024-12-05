@@ -29,7 +29,7 @@
 
 <ng-template #welcome>
     <div class="d-flex flex-row align-items-center">
-        <p><strong>Welcome {{ user.username }} !</strong></p>
+        <p><strong>Welcome {{ user!.username }} !</strong></p>
         <button class="btn btn-dark mx-3" (click)="logout()">Logout</button>
     </div> 
 </ng-template>

@@ -8,11 +8,13 @@ import { Article } from '../interfaces/article';
 })
 export class NewsService {
 
+  articleList : Article[] = [];
   private newsUrl = 'http://sanger.dia.fi.upm.es/pui-rest-news/articles';  // URL to web api
   private articleUrl = 'http://sanger.dia.fi.upm.es/pui-rest-news/article';  // URL to web api
 
   constructor(private http: HttpClient) {
-    this.APIKEY = ""; 
+    this.APIKEY = "";
+    this.loadArticles(); 
   }
 
   // Set the corresponding APIKEY accordig to the received by email
@@ -38,10 +40,23 @@ export class NewsService {
       })
     };
     console.log('Apikey successfully changed ' + this.APIKEY);
+    this.loadArticles();
   }
 
   setAnonymousApiKey() {
     this.setUserApiKey(this.APIKEY_ANON);
+    this.loadArticles();
+  }
+
+  loadArticles(){
+    this.getArticles().subscribe(
+      (data: Article[]) => {
+        this.articleList = data;
+      },
+      error => {
+        console.error('Erreur lors de la récupération des articles:', error);
+      }
+    );
   }
 
   // Returns the list of news contain elements with the following fields:

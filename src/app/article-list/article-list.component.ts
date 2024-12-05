@@ -10,15 +10,14 @@ import { log } from 'console';
   templateUrl: './article-list.component.html',
   styleUrl: './article-list.component.css'
 })
-export class ArticleListComponent implements OnInit{
+export class ArticleListComponent {
 
   activeTab: Category = Category.All; // active tab by default;
   tabs : any = Object.values(Category); // list of tabs
   searchText: string = '';
-  loginSrv: LoginService;
 
+  loginSrv: LoginService;
   newsSvr : NewsService;
-  articleList : Article[] = [];
 
   constructor(private newsSrv : NewsService, loginSrv : LoginService){
     if (!loginSrv.isLogged()){
@@ -26,10 +25,6 @@ export class ArticleListComponent implements OnInit{
     }
     this.loginSrv = loginSrv;
     this.newsSvr = newsSrv;
-  }
-
-  ngOnInit() {
-    this.getArticles();
   }
   
   setActiveTab(tab: Category) {
@@ -46,20 +41,8 @@ export class ArticleListComponent implements OnInit{
         }
       );
       window.confirm(article.title +' have beeing deleted');
-      this.getArticles();
+      this.newsSrv.loadArticles();
     }
    
   }
-
-  getArticles(){
-    this.newsSrv.getArticles().subscribe(
-      (data: Article[]) => {
-        this.articleList = data;
-      },
-      error => {
-        console.error('Erreur lors de la récupération des articles:', error);
-      }
-    );
-  }
-  
 }

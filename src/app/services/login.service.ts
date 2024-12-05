@@ -10,7 +10,6 @@ import { User } from '../interfaces/user';
 export class LoginService {
 
   private user: User | null = null;
-
   private loginUrl = 'https://sanger.dia.fi.upm.es/pui-rest-news/login';
 
   private message: string | null = null;
